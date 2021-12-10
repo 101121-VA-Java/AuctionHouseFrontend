@@ -4,12 +4,12 @@
         <form>
             <div class="form-group">
               <label for="exampleInputEmail1">Username</label>
-              <input type="email" name="username"  class="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter email">
+              <input [(ngModel)]="uname" type="email" name="username"  class="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter email">
               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
               <label for="exampleInputPassword1">Password</label>
-              <input type="password" name="password"  class="form-control" id="password" placeholder="Password">
+              <input [(ngModel)]="pw" type="password" name="password"  class="form-control" id="password" placeholder="Password">
             </div>
             <button id="log-sub" type="submit" class="btn btn-primary" (click)='login()'>Submit</button>
           </form>
