@@ -1,18 +1,36 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  response: any = "";
+  token: string = "";
 
   constructor(private http: HttpClient) { }
 
-  userInfo(username: string, password: string){
-    return this.http.post('http://localhost:8080/api/auth',{
-      username,
-      password
-    })
+  login(data: any){
+    return this.http.post(`http://localhost:8080/api/auth`, data, {
+      headers: {'Content-type': 'application/json'},
+      observe: 'response'
+    }).pipe(
+      map(response => {
+        // takes the principal user returned to be stored in the current user variable for use in other components
+        this.response = response.body;
+        // retrieves the token from the headers to be leveraged in future http requests
+        this.token = response.headers.get('Authorization') || '';
+        sessionStorage.setItem("token", this.token);
+        console.log("response: " + response.body + "token: " + sessionStorage.getItem("token"));
+      })
+    );
+  }
+
+  
+  logout(): void {
+    this.response = undefined;
+    this.token = '';
+    sessionStorage.clear();
   }
 }

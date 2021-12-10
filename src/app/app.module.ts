@@ -9,13 +9,15 @@ import { LoginComponent } from './components/login/login.component';
 import { ClientComponent } from './components/client/client.component';
 import { AuctioneerComponent } from './components/auctioneer/auctioneer.component';
 import { RouterModule } from '@angular/router';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ClientComponent,
-    AuctioneerComponent
+    AuctioneerComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
