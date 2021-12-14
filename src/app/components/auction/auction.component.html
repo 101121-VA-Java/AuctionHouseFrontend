@@ -1,0 +1,13 @@
+<hr>
+<h1>Arts in auction</h1>
+<ng-container *ngIf='auction; else noAuction'>
+    <div>
+        <h4>Art Id: {{auction.objectID}}</h4>
+        <h4>Art Name: {{auction.objectName}}</h4>
+        <h4>Artist: {{auction.artistDisplayName}}</h4>
+        <h4>Art Image: <img [src] = 'auction.primaryImage'> </h4>
+    </div>
+</ng-container>
+<ng-template #noAuction>
+    No Auction.
+</ng-template>
