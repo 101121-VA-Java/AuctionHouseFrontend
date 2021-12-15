@@ -28,11 +28,23 @@
     margin-top: 10px;
 }
 
-form {
+#logForm {
     margin-right: 19%;
     margin-left: 19%;
     margin-top: 5%;
 }
+/* #model-form{
+    margin-left: 76px;
+} */
 h2{
     text-align: center;
+}
+
+.form-floating{
+    margin-bottom: 2rem;
+}
+
+#submitBtn{
+    display: flex;
+    justify-content: center;
 }
