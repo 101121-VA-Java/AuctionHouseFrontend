@@ -26,7 +26,7 @@ import { ArtService } from './services/art.service';
     NavComponent,
     RegisterComponent,
     CollectionsComponent,
-    CountdownComponent
+    CountdownComponent,
     LogoutComponent,
     AuctionComponent,
     AuctionHomeComponent
