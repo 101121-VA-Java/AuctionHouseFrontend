@@ -2,22 +2,24 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { ClientComponent } from './components/client/client.component';
-import { AuctioneerComponent } from './components/auctioneer/auctioneer.component';
 import { RouterModule } from '@angular/router';
 import { LogoutComponent } from './components/logout/logout.component';
+import { AuctionComponent } from './components/auction/auction.component';
+import { AuctionHomeComponent } from './components/auction-home/auction-home.component';
+import { ArtService } from './services/art.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ClientComponent,
-    AuctioneerComponent,
-    LogoutComponent
+    LogoutComponent,
+    AuctionComponent,
+    AuctionHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,7 @@ import { LogoutComponent } from './components/logout/logout.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ArtService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
