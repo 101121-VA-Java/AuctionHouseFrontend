@@ -9,6 +9,8 @@ import { Auction } from '../model/auction';
 })
 export class ArtService {
   private ids: any = null;
+  public arts: any = null;
+  
   constructor(private http: HttpClient) { }
 
   setIds(ids: any){
@@ -31,6 +33,26 @@ export class ArtService {
 
   getArtById(objectID: string): Observable<Auction>{
     return this.http.get('https://collectionapi.metmuseum.org/public/collection/v1/objects/'+objectID)
+    .pipe(
+      map(response => response as Auction)
+    )
+  }
+
+  createAuction(): Observable<Auction>{
+    // {
+    //   "artistname": "string",
+    //   "artpiecename": "string",
+    //   "bidderid": 0,
+    //   "highestbid": 0,
+    //   "id": 0,
+    //   "ownerid": 0,
+    //   "url": "string"
+    // }
+    // 1. hit the third-party API and get one random image.
+    // 2. after the image is retrieved create the body.
+    // 3. make a post request with the body to the backend. 
+    let body: any = {}; 
+    return this.http.post('http://3.141.200.91:8081/', body)
     .pipe(
       map(response => response as Auction)
     )

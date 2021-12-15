@@ -8,13 +8,18 @@ import { Auction } from 'src/app/model/auction';
   styleUrls: ['./auction-home.component.css']
 })
 export class AuctionHomeComponent implements OnInit {
-
+  public auction: any = {
+    objectID: 2,
+    artistDisplayName: 3,
+    objectName: 4,
+    primaryImage: 5
+  }
   constructor(private artsService: ArtService) { }
 
     ngOnInit(): void {
     }
 
-    auction?: Auction
+    // auction?: Auction
 
   getAuction(id: string){
     // let arts = this.artsByType.getArtsByType('gun');
