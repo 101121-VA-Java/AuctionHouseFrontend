@@ -4,6 +4,7 @@ import { AuctioneerComponent } from './components/auctioneer/auctioneer.componen
 import { ClientComponent } from './components/client/client.component';
 import { CollectionsComponent } from './components/collections/collections.component';
 import { LoginComponent } from './components/login/login.component';
+import { AuctionComponent } from './components/auction/auction.component';
 
 const routes: Routes = [{
   path: '',
@@ -17,6 +18,9 @@ const routes: Routes = [{
 },{
   path:'client/collections',
     component: CollectionsComponent
+},{
+  path: 'auction',  
+    component: AuctionComponent
 }];
 
 @NgModule({
