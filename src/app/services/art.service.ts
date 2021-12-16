@@ -1,24 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 import { ArtsByType } from '../model/arts-by-type';
-import { Auction } from '../model/auction';
+import { Art } from '../model/Art';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArtService {
-  private ids: any = null;
-  public arts: any = null;
+  ids: any = null;
+  arts: any = null;
+  mostRecentArt: any = null;
   
-  constructor(private http: HttpClient) { }
-
-  setIds(ids: any){
-    this.ids = ids;
+  constructor(private http: HttpClient) { 
   }
 
-  getIds(){
-    return this.ids;
+  getArtIdsWithImages(): any {
+    let url = 'https://collectionapi.metmuseum.org/public/collection/v1/search?q=hasImages=true';
+    return this.http.get(url).pipe(map((response: any) => {
+      this.ids = response.objectIDs;
+    }));
   }
 
   getArtsByType(type: string):Observable<void> {
@@ -27,18 +28,18 @@ export class ArtService {
     return this.http.get(url+search).pipe(map(response => {
       response;
       this.ids = response;
-      console.log(this.getIds());
+      console.log(this.ids);
     }));
   }
 
-  getArtById(objectID: string): Observable<Auction>{
+  getArtById(objectID: string): Observable<Art>{
     return this.http.get('https://collectionapi.metmuseum.org/public/collection/v1/objects/'+objectID)
     .pipe(
-      map(response => response as Auction)
+      map(response => response as Art)
     )
   }
 
-  createAuction(): Observable<Auction>{
+  listArtForAuction(data: any){
     // {
     //   "artistname": "string",
     //   "artpiecename": "string",
@@ -48,13 +49,18 @@ export class ArtService {
     //   "ownerid": 0,
     //   "url": "string"
     // }
-    // 1. hit the third-party API and get one random image.
+
     // 2. after the image is retrieved create the body.
     // 3. make a post request with the body to the backend. 
-    let body: any = {}; 
-    return this.http.post('http://3.141.200.91:8081/', body)
-    .pipe(
-      map(response => response as Auction)
-    )
+    return this.http.post(
+      'http://localhost:8080/arts', data, { 
+        headers: {'Content-type': 'application/json'},
+        observe: 'response'
+      }).pipe(
+          map(response => {
+            this.mostRecentArt = response.body;
+          })
+      )
+    
   }
 }
