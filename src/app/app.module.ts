@@ -11,7 +11,6 @@ import { NavComponent } from './components/nav/nav.component';
 import { RegisterComponent } from './components/register/register.component';
 import { CollectionsComponent } from './components/collections/collections.component';
 import { CountdownComponent } from './components/countdown/countdown.component';
-import { RouterModule } from '@angular/router';
 import { LogoutComponent } from './components/logout/logout.component';
 import { AuctionComponent } from './components/auction/auction.component';
 import { AuctionHomeComponent } from './components/auction-home/auction-home.component';

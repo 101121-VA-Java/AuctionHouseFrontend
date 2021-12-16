@@ -33,14 +33,15 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="modal-top">
+        <div id="modal-top">
           <div class="form-group">
             <div class="row">
               <div class="col-6">
+                <!-- <div name="fname" [(ngModel)]="test.fname" ngDefaultControl>{{test.fname}}</div> -->
                 <a>First Name</a>
                 <div class="form-floating">
                   <input type="name" class="form-control" id="floatingInput1" aria-describedby="usernameHelp"
-                    placeholder="john">
+                  [(ngModel)]="test.fname" name="fname">
                   <label for="floatingInput1" id="fName"> </label>
                 </div>
 
@@ -75,7 +76,7 @@
               </div>
             </div>
           </div>
-        </form>
+        </div>
 
       </div>
       <div class="modal-footer">
