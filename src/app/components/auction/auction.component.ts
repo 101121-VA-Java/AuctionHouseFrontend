@@ -7,13 +7,14 @@ import { Auction } from 'src/app/model/auction';
   templateUrl: './auction.component.html',
   styleUrls: ['./auction.component.css']
 })
+
 export class AuctionComponent implements OnInit {
   public id: string = '';
   public auction: any = {
     objectID: 2,
     artistDisplayName: 3,
     objectName: 4,
-    primaryImage: 5
+    primaryImage: ''
   }
   constructor(private artService: ArtService) { }
 

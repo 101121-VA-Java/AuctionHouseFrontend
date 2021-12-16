@@ -11,7 +11,7 @@ export class AuctioneerComponent implements OnInit {
     objectID: 2,
     artistDisplayName: 3,
     objectName: 4,
-    primaryImage: 5
+    primaryImage: ''
   }
   constructor(private as: ArtService) { }
 
