@@ -1,6 +1,6 @@
 import { ArtService } from './../../services/art.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { Auction } from 'src/app/model/auction';
+import { Art } from 'src/app/model/Art';
 
 @Component({
   selector: 'app-auction',
