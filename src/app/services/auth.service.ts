@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
+import { User } from '../model/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  response: any = "";
+  currentUser: any;
   token: string = "";
 
   constructor(private http: HttpClient) { }
@@ -17,20 +18,18 @@ export class AuthService {
       observe: 'response'
     }).pipe(
       map(response => {
-        // takes the principal user returned to be stored in the current user variable for use in other components
-        this.response = response.body;
-        // retrieves the token from the headers to be leveraged in future http requests
+        this.currentUser = response.body;
         this.token = response.headers.get('Authorization') || '';
-        sessionStorage.setItem("token", this.token);
-        console.log("response: " + response.body + "token: " + sessionStorage.getItem("token"));
+        localStorage.setItem("token", this.token);
+        localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
       })
     );
   }
 
   
   logout(): void {
-    this.response = undefined;
+    this.currentUser = undefined;
     this.token = '';
-    sessionStorage.clear();
+    localStorage.clear();
   }
 }
