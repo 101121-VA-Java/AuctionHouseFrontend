@@ -1,4 +1,3 @@
-import { ArtService } from './../../services/art.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Art } from 'src/app/model/Art';
 
@@ -9,22 +8,12 @@ import { Art } from 'src/app/model/Art';
 })
 
 export class AuctionComponent implements OnInit {
-  public id: string = '';
-  public auction: any = {
-    objectID: 2,
-    artistDisplayName: 3,
-    objectName: 4,
-    primaryImage: ''
+  @Input() arts: Art[];
+  
+  constructor() { 
+    this.arts = [];
   }
-  constructor(private artService: ArtService) { }
 
-    ngOnInit(): void {
-    }
-      
-    // @Input() auction?: Auction; 
-    
-    getAuction(){
-      // this.artService.getArtById(id: string)
-      console.log("Auction component getAuction");
-    }
+  ngOnInit(): void {
+  }
 }

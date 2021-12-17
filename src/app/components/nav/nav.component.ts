@@ -25,7 +25,6 @@ export class NavComponent implements OnInit {
     let u: User = {fname: this.fname, lname: this.lname, uname: this.uname, pw: this.pw, roleid: 2}
     let data = JSON.stringify(u);
     this.us.update(data).subscribe(res =>{
-      console.log(res);
       if(HttpStatusCode.Ok){
         this.refreshInfo();
         console.log("update went through");
