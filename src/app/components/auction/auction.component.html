@@ -1,17 +1,12 @@
-<h1>Arts in auction</h1>
-<hr>
-<!-- <input [(ngModel)]='id'>
-<button (click)='getAuction()'>Get Auction</button>
-<app-auction [auction]='auction'></app-auction> -->
-   
-<ng-container *ngIf='auction; else noAuction'>
-    <div>
-        <h4>Art Id: {{auction.objectID}}</h4>
-        <h4>Art Name: {{auction.objectName}}</h4>
-        <h4>Artist: {{auction.artistDisplayName}}</h4>
-        <h4>Art Image: <img [src] = 'auction.primaryImage'> </h4>
+<ng-container *ngIf='arts.length > 0; else noArts'>
+    <p>{{arts.length}} art pieces are up for auction.</p>
+    <div *ngFor='let art of arts'>
+        <hr>
+        <p *ngIf='art["name"]'>Name: {{art["name"]}}</p>
+        <p *ngIf='art["artist"]'>Artist: {{art["artist"]}}</p>
+        <img [src]="art['url']">
     </div>
 </ng-container>
-<ng-template #noAuction>
-    No Auctions.
+<ng-template #noArts>
+    All sold out; please try again later.
 </ng-template>

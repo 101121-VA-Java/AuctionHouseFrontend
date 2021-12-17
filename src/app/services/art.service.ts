@@ -15,6 +15,13 @@ export class ArtService {
   constructor(private http: HttpClient) { 
   }
 
+  getSavedArt() {
+    let url = 'http://localhost:8080/arts';
+    return this.http.get(url).pipe(map((response: any) => {
+      this.arts = response;
+    }));
+  }
+
   getArtIdsWithImages(): any {
     let url = 'https://collectionapi.metmuseum.org/public/collection/v1/search?q=hasImages=true';
     return this.http.get(url).pipe(map((response: any) => {
@@ -26,9 +33,7 @@ export class ArtService {
     let search = 'search?isPublicDomain=true&hasImage=true&q=' + type;
     let url = 'https://collectionapi.metmuseum.org/public/collection/v1/';
     return this.http.get(url+search).pipe(map(response => {
-      response;
       this.ids = response;
-      console.log(this.ids);
     }));
   }
 
@@ -40,18 +45,6 @@ export class ArtService {
   }
 
   listArtForAuction(data: any){
-    // {
-    //   "artistname": "string",
-    //   "artpiecename": "string",
-    //   "bidderid": 0,
-    //   "highestbid": 0,
-    //   "id": 0,
-    //   "ownerid": 0,
-    //   "url": "string"
-    // }
-
-    // 2. after the image is retrieved create the body.
-    // 3. make a post request with the body to the backend. 
     return this.http.post(
       'http://localhost:8080/arts', data, { 
         headers: {'Content-type': 'application/json'},

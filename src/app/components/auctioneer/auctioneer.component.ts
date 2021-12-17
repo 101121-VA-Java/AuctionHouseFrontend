@@ -1,7 +1,6 @@
 import { ArtService } from './../../services/art.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpStatusCode } from '@angular/common/http';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'app-auctioneer',
@@ -11,6 +10,8 @@ import { from } from 'rxjs';
 export class AuctioneerComponent implements OnInit {
   ids: any[] = [];
   currentArtPiece: any = {};
+  artsForSale: any = [];
+  medium: string = "";
 
   constructor(private artService: ArtService) { }
 
@@ -18,37 +19,43 @@ export class AuctioneerComponent implements OnInit {
     this.artService.getArtIdsWithImages().subscribe((res: any) => {
       this.getNewImage();
     });
+    this.artService.getSavedArt().subscribe((res: any) => {
+      this.artsForSale = this.artService.arts;
+    })
   }
 
   createAuction() {
-    let {
-      artistDisplayName,
-      medium,
-      primaryImageSmall,
-      title
-    } = this.currentArtPiece;
+    let cap = this.currentArtPiece;
+    let artistDisplayName, medium, primaryImageSmall, title;
+    if(cap.artistDisplayName) artistDisplayName = cap.artistDisplayName;
+    if(cap.medium) medium = cap.medium;
+    if(cap.primaryImageSmall) primaryImageSmall = cap.primaryImageSmall;
+    if(cap.title) title = cap.title;
+
+    this.medium = medium;
 
     let data = {
-      artistname: artistDisplayName,
-      artpiecename: title,
-      bidderid: 1,
-      highestbid: 0,
+      artist: artistDisplayName,
+      name: title,
       ownerid: 1,
       url: primaryImageSmall
     };
 
     this.artService.listArtForAuction(data).subscribe((res: any) => {
       this.currentArtPiece = res;
+      this.artService.getSavedArt().subscribe((res: any) => {
+        this.artsForSale = this.artService.arts;
+      })
     });
 
     this.getNewImage();
+    
   }
 
   getNewImage() {
     let ids = this.artService.ids;
     let randomArtPieceId = ids[Math.floor(Math.random() * ids.length)];
     this.artService.getArtById(randomArtPieceId).subscribe(res => {
-      console.log(res);
       this.currentArtPiece = res;
     });
   }
