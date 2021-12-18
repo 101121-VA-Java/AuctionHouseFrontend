@@ -5,6 +5,7 @@ import { ClientComponent } from './components/client/client.component';
 import { CollectionsComponent } from './components/collections/collections.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuctionComponent } from './components/auction/auction.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [{
   path: '',
@@ -12,6 +13,8 @@ const routes: Routes = [{
 },{
   path:'client',
     component: ClientComponent
+},{path:'register',
+component: RegisterComponent
 },{
   path:'auctioneer',
     component: AuctioneerComponent
