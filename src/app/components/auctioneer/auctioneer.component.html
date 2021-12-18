@@ -8,6 +8,14 @@
                 <button (click)="createAuction()" type="button" class="btn" id="imgBtn">Create Auction</button>
             </div>
         </div>
-        <app-auction [arts]="artsForSale"></app-auction>
+        <ng-container>
+            <app-auction-container [auctions]="auctions">
+                <div  *ngFor='let auction of auctions'>
+                    <app-auction [auction]="auction">
+                        
+                    </app-auction>
+                </div>
+            </app-auction-container>
+        </ng-container>
     </div>
 </div>

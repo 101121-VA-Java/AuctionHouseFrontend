@@ -1,7 +1,7 @@
 export interface Art {
+    id?: number,
     artist: string,
     name: string,
-    id: number,
     ownerid: number,
     url: string
 }
