@@ -8,11 +8,9 @@ import { Art } from 'src/app/model/Art';
 })
 
 export class AuctionComponent implements OnInit {
-  @Input() arts: Art[];
+  @Input() arts: Art[] = [];
   
-  constructor() { 
-    this.arts = [];
-  }
+  constructor() { }
 
   ngOnInit(): void {
   }
