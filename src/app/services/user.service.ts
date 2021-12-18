@@ -48,7 +48,6 @@ export class UserService {
       observe: 'response'
     }).pipe(
       map(response => {
-        console.log(response);
         this.currentUser = response.body;
         this.token = response.headers.get('Authorization') || '';
         localStorage.setItem("token", this.token);

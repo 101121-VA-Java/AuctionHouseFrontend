@@ -14,6 +14,7 @@ import { CountdownComponent } from './components/countdown/countdown.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { AuctionComponent } from './components/auction/auction.component';
 import { ArtService } from './services/art.service';
+import { AuctionContainerComponent } from './components/auction-container/auction-container.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ArtService } from './services/art.service';
     CollectionsComponent,
     CountdownComponent,
     LogoutComponent,
-    AuctionComponent
+    AuctionComponent,
+    AuctionContainerComponent
   ],
   imports: [
     BrowserModule,

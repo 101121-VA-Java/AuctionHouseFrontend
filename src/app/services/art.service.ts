@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, switchMap } from 'rxjs';
-import { ArtsByType } from '../model/arts-by-type';
+import { map, Observable } from 'rxjs';
 import { Art } from '../model/Art';
 
 @Injectable({
@@ -37,11 +36,9 @@ export class ArtService {
     }));
   }
 
-  getArtById(objectID: string): Observable<Art>{
-    return this.http.get('https://collectionapi.metmuseum.org/public/collection/v1/objects/'+objectID)
-    .pipe(
-      map(response => response as Art)
-    )
+  getArtById(objectID: number): Observable<Art>{
+    let url = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'+objectID;
+    return this.http.get(url).pipe(map(response => response as Art))
   }
 
   listArtForAuction(data: any){
