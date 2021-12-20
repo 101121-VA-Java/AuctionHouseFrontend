@@ -1,24 +1,12 @@
 <app-nav></app-nav>
-<div id="page">
-
- <ng-container *ngIf='this.populateArt.length > 0; else noArts'>
-  <p>{{populateArt.length}} art pieces in collection.</p>
-
-  <div *ngFor='let art of arts'>
-    <hr>
-    <p *ngIf='art["name"]'>Name: {{art["name"]}}</p>
-    <p *ngIf='art["artist"]'>Artist: {{art["artist"]}}</p>
-    <img [src]="art['url']">
-</div>
-       
-    </ng-container>
-    <ng-template #noArts>
-        No Art yet.
-    </ng-template>
-
-
-<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-    <div class="carousel-inner">
+<ng-container>
+  <!-- <div *ngIf='ownedArt.length > 0; else none' id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div  class="carousel-inner">
+      <div *ngFor='let art of ownedArt'>
+        <div class="carousel-item">
+          <img [src]='art["url"]' class="d-block w-100" alt="owned-art">
+        </div>
+      </div>
       <div class="carousel-item active">
         <img src=" " class="d-block w-100" alt="...">
       </div>
@@ -29,6 +17,7 @@
         <img src="..." class="d-block w-100" alt="...">
       </div>
     </div>
+    
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
@@ -38,4 +27,16 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
+  <ng-template #none>
+    none owned
+  </ng-template> -->
+  <div *ngIf='ownedArt.length > 0; else none' id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div *ngFor='let art of ownedArt'>
+      <img [src]='art["url"]' class="d-block w-100" alt="owned-art">
+    </div>
   </div>
+  <ng-template #none>
+    none owned
+  </ng-template>
+  <button (click)='refreshOwnedArt()' class="btn btn-primary">test</button>
+</ng-container>

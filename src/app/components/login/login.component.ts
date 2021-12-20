@@ -1,7 +1,7 @@
 import { HttpStatusCode } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
   uname = "";
   pw = "";
 
-  constructor(private Auth: AuthService, private router: Router) {}
+  constructor(private us: UserService, private router: Router) {}
 
   ngOnInit(): void {
   }
@@ -22,9 +22,9 @@ export class LoginComponent implements OnInit {
     const pw = this.pw
     let data: any = {uname, pw};
     data = JSON.stringify(data);
-    this.Auth.login(data).subscribe(res =>{
+    this.us.login(data).subscribe(res =>{
       if(HttpStatusCode.Ok){
-        let role = Number.parseInt(this.Auth.token.split(":")[1]);
+        let role = Number.parseInt(this.us.token.split(":")[1]);
         if(role === 1){
           this.router.navigate(['/auctioneer'])
         } else if(role === 2){

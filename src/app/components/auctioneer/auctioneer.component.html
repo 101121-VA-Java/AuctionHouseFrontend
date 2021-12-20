@@ -1,31 +1,19 @@
 <app-nav></app-nav>
 <div id="page">
-    <div id="opt">
-        <a class=" display-5" id="textH" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button"
-            aria-expanded="false" aria-controls="multiCollapseExample1">
-            Current Auctions
-        </a>
-        <a class=" display-5 " id="textH" type="button" data-bs-toggle="collapse"
-            data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">create
-            An Auction
-        </a>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="collapse multi-collapse show" id="multiCollapseExample1">
-                <div class="card card-body">
-                    <app-auction [arts]="artsForSale"></app-auction>
-                    <hr>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="collapse multi-collapse show" id="multiCollapseExample2">
-                <div class="card card-body">
+    <div class="container">
+        <hr>
+        <ng-container (updateArtOwnerEvent)='getAuctions()'>
+            <div class="row">
+                <h1 class="display-5">List Art for Auction</h1>
+                <div class="col-8">
                     <button (click)="createAuction()" type="button" class="btn" id="imgBtn">Create Auction</button>
-
+                    <button *ngIf='auctions.length === 0' (click)="getAuctions()" type="button" class="btn"
+                        id="imgBtn">Refresh Auctions</button>
                 </div>
             </div>
-
-        </div>
+            <div *ngFor='let auction of auctions'>
+                <app-auction-as-auctioneer [auction]='auction'></app-auction-as-auctioneer>
+            </div>
+        </ng-container>
     </div>
+</div>

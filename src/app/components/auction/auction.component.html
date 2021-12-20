@@ -1,12 +1,22 @@
-<ng-container *ngIf='arts.length > 0; else noArts'>
-    <p>{{arts.length}} art pieces are up for auction.</p>
-    <div *ngFor='let art of arts'>
-        <hr>
-        <p *ngIf='art["name"]'>Name: {{art["name"]}}</p>
-        <p *ngIf='art["artist"]'>Artist: {{art["artist"]}}</p>
-        <img [src]="art['url']">
+  <hr>
+  <div *ngIf='auction["art"]["url"]' class="col-8" >
+    <img [src]='auction["art"]["url"]'>
+  </div>
+  <div *ngIf='auction["art"]["id"]' class="col">
+    <div id="colu-top">
+      <h4 class="display-6" *ngIf='auction["art"]["name"]'>Name: {{auction["art"]["name"]}}</h4>
+      <h5 class="display-6" *ngIf='auction["art"]["artist"]'>Artist: {{auction["art"]["artist"]}}</h5>
+      <p class="display-6">Highest Bid: {{auction["highestBid"]}}</p>
+      <button (click)="getAuction()" type="button" class="btn" id="bids" data-bs-toggle="modal" [attr.data-bs-target]="'#art' + auction['art']['id']">
+        See bid history
+      </button>
+      <div class="input-group mb-3">
+        <span class="input-group-text">$</span>
+        <input [(ngModel)]="unsavedBid" name="unsavedBid" type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+        <span (click)='placeBid(auction["art"]["id"])' type="button" class=" input-group-text" id="sub">
+          Place Bid
+        </span>
+      </div>
     </div>
-</ng-container>
-<ng-template #noArts>
-    All sold out; please try again later.
-</ng-template>
+  </div>
+  <app-bid-history [artId]='auction["art"]["id"]' [bids]='auction["bids"]'></app-bid-history>

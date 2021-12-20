@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Art } from 'src/app/model/Art';
 import { ArtService } from 'src/app/services/art.service';
-import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-collections',
@@ -9,33 +8,21 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./collections.component.css']
 })
 export class CollectionsComponent implements OnInit {
-  arts: any = [];
-  constructor(private Auth: AuthService, private Arts: ArtService) { }
-
-   
-  // 1. request art pieces by owner id from our backend
-    //      backend returns {... art1, art2, etc}
-    // 2. ngFor to show the art pieces on the screen
-
+  ownedArt: Art[] = [];
+  constructor(private as: ArtService) { }
 
   ngOnInit(): void {
-    this.populateArt();
+    this.refreshOwnedArt();
   }
 
-  populateArt(){
-    // let userId = Number.parseInt(this.Auth.token.split(":")[0]);
-    this.Arts.getLoggedInUserArt().subscribe((res: any) => {
-      this.arts = this.Arts.arts;
-      console.log(this.arts);
-    });
-    // const result = this.arts.filter((art: 
-    //   Art) => art.ownerid  === userId);
-
-    // for(const i in this.arts){
-    //   // if(i.owerId == userId){
-
-    //   // }
-    // }
+  refreshOwnedArt() {
+    let id: any = localStorage.getItem('token');
+    if(id) id = id.split(":")[0];
+    id = Number.parseInt(id);
+    this.as.getOwnedArt(id).subscribe((res: any) => {
+      this.ownedArt = this.as.arts;
+      console.log(this.ownedArt)
+    })
   }
 
 

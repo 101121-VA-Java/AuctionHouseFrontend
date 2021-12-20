@@ -1,18 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Auction } from 'src/app/model/Auction';
 import { Bid } from 'src/app/model/Bid';
 import { AuctionService } from 'src/app/services/auction.service';
 import { BidService } from 'src/app/services/bid.service';
 
 @Component({
-  selector: 'app-auction',
-  templateUrl: './auction.component.html',
-  styleUrls: ['./auction.component.css']
+  selector: 'app-auction-container',
+  templateUrl: './auction-container.component.html',
+  styleUrls: ['./auction-container.component.css']
 })
 
-export class AuctionComponent implements OnInit {
-  @Input() auction!: Auction;
-  @Output() newBidEvent = new EventEmitter();
+export class AuctionContainerComponent implements OnInit {
+  @Input() auctions: Auction[] = [];
   unsavedBid: number = 0;
   constructor(private bidService: BidService, private auctionService: AuctionService) { }
 
@@ -34,11 +33,16 @@ export class AuctionComponent implements OnInit {
     };
 
     this.bidService.createBid(body).subscribe((res: any) => {
-      this.newBidEvent.emit(res);
+      this.auctions = this.auctionService.getAuctions();
     })
   }
 
-  getAuction() {
-    console.log(this.auction.art.id);
+  updateAuctions() {
+    this.auctions = this.auctionService.getAuctions();
+  }
+
+  getAuctions() {
+    console.log(this.auctions);
+    this.auctions = this.auctionService.auctions;
   }
 }

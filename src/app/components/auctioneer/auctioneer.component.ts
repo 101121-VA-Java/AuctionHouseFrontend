@@ -1,6 +1,8 @@
 import { ArtService } from './../../services/art.service';
 import { Component, OnInit } from '@angular/core';
-import { HttpStatusCode } from '@angular/common/http';
+import { Auction } from 'src/app/model/Auction';
+import { AuctionService } from 'src/app/services/auction.service';
+import { Art } from 'src/app/model/Art';
 
 @Component({
   selector: 'app-auctioneer',
@@ -9,54 +11,52 @@ import { HttpStatusCode } from '@angular/common/http';
 })
 export class AuctioneerComponent implements OnInit {
   ids: any[] = [];
-  currentArtPiece: any = {};
   artsForSale: any = [];
   medium: string = "";
+  auctions: Auction[] = [];
+  show = true;
 
-  constructor(private artService: ArtService) { }
+  constructor(private artService: ArtService, private auctionService: AuctionService) { }
 
   ngOnInit(): void {
-    this.artService.getArtIdsWithImages().subscribe((res: any) => {
-      this.getNewImage();
-    });
-    this.artService.getSavedArt().subscribe((res: any) => {
-      this.artsForSale = this.artService.arts;
-    })
+    this.ids = this.auctionService.ids;
+    this.auctions = this.auctionService.auctions;
+    console.log(this.auctions)
+  }
+
+  ngDoCheck() {
+    console.log('do check');
+    this.auctions = this.auctionService.auctions;
   }
 
   createAuction() {
-    let cap = this.currentArtPiece;
-    let artistDisplayName, medium, primaryImageSmall, title;
-    if(cap.artistDisplayName) artistDisplayName = cap.artistDisplayName;
-    if(cap.medium) medium = cap.medium;
-    if(cap.primaryImageSmall) primaryImageSmall = cap.primaryImageSmall;
-    if(cap.title) title = cap.title;
-
-    this.medium = medium;
-
-    let data = {
-      artist: artistDisplayName,
-      name: title,
-      ownerid: 1,
-      url: primaryImageSmall
-    };
-
-    this.artService.listArtForAuction(data).subscribe((res: any) => {
-      this.currentArtPiece = res;
-      this.artService.getSavedArt().subscribe((res: any) => {
-        this.artsForSale = this.artService.arts;
-      })
-    });
-
-    this.getNewImage();
-    
+    let test = this.auctionService.getRandomArtFromMetroAPI();
+    if(test) test.subscribe((res: any) => {
+      let cap = res;
+      let artistDisplayName, medium, primaryImageSmall, title;
+      if (cap.artistDisplayName) artistDisplayName = cap.artistDisplayName;
+      if (cap.medium) medium = cap.medium;
+      if (cap.primaryImageSmall) primaryImageSmall = cap.primaryImageSmall;
+      if (cap.title) title = cap.title;
+      if (cap.medium) this.medium = medium;
+      let data: Art = {
+        artist: artistDisplayName || null,
+        name: title || null,
+        ownerid: 1,
+        url: primaryImageSmall
+      };
+      this.artService.listArtForAuction(data).subscribe((res: any) => {
+        let auction = {
+          art: this.artService.mostRecentArt,
+          bids: [],
+          highestBid: 0
+        }
+        this.auctions.push(auction);
+      });
+    })
   }
 
-  getNewImage() {
-    let ids = this.artService.ids;
-    let randomArtPieceId = ids[Math.floor(Math.random() * ids.length)];
-    this.artService.getArtById(randomArtPieceId).subscribe(res => {
-      this.currentArtPiece = res;
-    });
+  getAuctions() {
+    this.auctions = this.auctionService.auctions;
   }
 }

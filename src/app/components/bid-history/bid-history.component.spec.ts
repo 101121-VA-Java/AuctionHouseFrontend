@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AuctionHomeComponent } from './auction-home.component';
+import { BidHistoryComponent } from './bid-history.component';
 
-describe('AuctionHomeComponent', () => {
-  let component: AuctionHomeComponent;
-  let fixture: ComponentFixture<AuctionHomeComponent>;
+describe('BidHistoryComponent', () => {
+  let component: BidHistoryComponent;
+  let fixture: ComponentFixture<BidHistoryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AuctionHomeComponent ]
+      declarations: [ BidHistoryComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AuctionHomeComponent);
+    fixture = TestBed.createComponent(BidHistoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

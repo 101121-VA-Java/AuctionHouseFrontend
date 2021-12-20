@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, switchMap } from 'rxjs';
-import { ArtsByType } from '../model/arts-by-type';
+import { map, Observable } from 'rxjs';
 import { Art } from '../model/Art';
 
 @Injectable({
@@ -29,7 +28,14 @@ export class ArtService {
       this.ids = response.objectIDs;
     }));
   }
-  
+
+  getOwnedArt(id: number) {
+    let url = `http://localhost:8080/arts/?ownerId=${id}`;
+    return this.http.get(url).pipe(map((response: any) => {
+      this.arts = response;
+    }));
+  }
+
   getArtsByType(type: string):Observable<void> {
     let search = 'search?isPublicDomain=true&hasImage=true&q=' + type;
     let url = 'https://collectionapi.metmuseum.org/public/collection/v1/';
@@ -38,11 +44,9 @@ export class ArtService {
     }));
   }
 
-  getArtById(objectID: string): Observable<Art>{
-    return this.http.get('https://collectionapi.metmuseum.org/public/collection/v1/objects/'+objectID)
-    .pipe(
-      map(response => response as Art)
-    )
+  getArtById(objectID: number): Observable<Art>{
+    let url = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'+objectID;
+    return this.http.get(url).pipe(map(response => response as Art))
   }
 
   getLoggedInUserArt(): Observable<Art>{
@@ -67,7 +71,31 @@ export class ArtService {
           map(response => {
             this.mostRecentArt = response.body;
           })
-      )
-    
+      ) 
   }
+
+  updateArtOwner(updatedArt: Art) {
+    let id = updatedArt.id;
+    return this.http.put(
+      `http://localhost:8080/arts/${id}`, updatedArt, { 
+        headers: {'Content-type': 'application/json'},
+        observe: 'response'
+      }).pipe(
+          map(response => {
+          })
+      ) 
+  }
+
+  deleteArt(id: number) {
+    return this.http.delete(
+      `http://localhost:8080/arts/${id}`, { 
+        headers: {'Content-type': 'application/json'},
+        observe: 'response'
+      }).pipe(
+          map(response => {
+          })
+      ) 
+  }
+
+
 }
