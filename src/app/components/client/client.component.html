@@ -6,27 +6,11 @@
       <ng-container class="col-8" *ngIf='auctions.length > 0; else noAuctions'>
         <p>{{auctions.length}} art pieces are up for auction.</p>
         <div *ngFor='let auction of auctions'>
-          <hr>
-          <div *ngIf='auction["art"]["url"]' class="col-8" >
-            <img [src]='auction["art"]["url"]'>
-          </div>
-          <div *ngIf='auction["art"]["id"]' class="col">
-            <div id="colu-top">
-              <h4 class="display-6" *ngIf='auction["art"]["name"]'>Name: {{auction["art"]["name"]}}</h4>
-              <h5 class="display-6" *ngIf='auction["art"]["artist"]'>Artist: {{auction["art"]["artist"]}}</h5>
-              <p class="display-6">Highest Bid: {{auction["highestBid"]}}</p>
-              <div class="input-group mb-3">
-                <span class="input-group-text">$</span>
-                <input [(ngModel)]="unsavedBid" name="unsavedBid" type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
-                <span (click)='placeBid(auction["art"]["id"])' type="button" class=" input-group-text" id="sub">
-                  Place Bid
-                </span>
-              </div>
-            </div>
-          </div>
+          <app-auction [auction]='auction'></app-auction>
         </div>
       </ng-container>
       <ng-template #noAuctions>
+        <button (click)="getAuctions()" type="button" class="btn btn-primary" id="imgBtn">Refresh Auctions</button>
         All sold out; please try again later.
       </ng-template>
       <!-- <div class="col-8" >

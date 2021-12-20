@@ -28,6 +28,13 @@ export class ArtService {
     }));
   }
 
+  getOwnedArt(id: number) {
+    let url = `http://localhost:8080/arts/?ownerId=${id}`;
+    return this.http.get(url).pipe(map((response: any) => {
+      this.arts = response;
+    }));
+  }
+
   getArtsByType(type: string):Observable<void> {
     let search = 'search?isPublicDomain=true&hasImage=true&q=' + type;
     let url = 'https://collectionapi.metmuseum.org/public/collection/v1/';
@@ -50,7 +57,31 @@ export class ArtService {
           map(response => {
             this.mostRecentArt = response.body;
           })
-      )
-    
+      ) 
   }
+
+  updateArtOwner(updatedArt: Art) {
+    let id = updatedArt.id;
+    return this.http.put(
+      `http://localhost:8080/arts/${id}`, updatedArt, { 
+        headers: {'Content-type': 'application/json'},
+        observe: 'response'
+      }).pipe(
+          map(response => {
+          })
+      ) 
+  }
+
+  deleteArt(id: number) {
+    return this.http.delete(
+      `http://localhost:8080/arts/${id}`, { 
+        headers: {'Content-type': 'application/json'},
+        observe: 'response'
+      }).pipe(
+          map(response => {
+          })
+      ) 
+  }
+
+
 }

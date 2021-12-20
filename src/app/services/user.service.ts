@@ -49,6 +49,7 @@ export class UserService {
     }).pipe(
       map(response => {
         this.currentUser = response.body;
+        console.log(this.currentUser);
         this.token = response.headers.get('Authorization') || '';
         localStorage.setItem("token", this.token);
         localStorage.setItem("currentUser", JSON.stringify(this.currentUser));

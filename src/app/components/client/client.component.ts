@@ -1,8 +1,6 @@
 import { Component, OnInit, ɵɵsetComponentScope } from '@angular/core';
-import { Art } from 'src/app/model/Art';
 import { Auction } from 'src/app/model/Auction';
 import { Bid } from 'src/app/model/Bid';
-import { ArtService } from 'src/app/services/art.service';
 import { AuctionService } from 'src/app/services/auction.service';
 import { BidService } from 'src/app/services/bid.service';
 
@@ -37,5 +35,9 @@ export class ClientComponent implements OnInit {
     this.bidService.createBid(body).subscribe((res: any) => {
       this.auctions = this.auctionService.getAuctions();
     })
+  }
+
+  getAuctions() {
+    this.auctions = this.auctionService.auctions;
   }
 }
