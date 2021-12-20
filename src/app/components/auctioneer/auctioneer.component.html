@@ -1,12 +1,10 @@
 <app-nav></app-nav>
 <div id="page">
     <div class="container">
-        <hr>
         <ng-container (updateArtOwnerEvent)='getAuctions()'>
             <div class="row">
-                <h1 class="display-5">List Art for Auction</h1>
                 <div class="col-8">
-                    <button (click)="createAuction()" type="button" class="btn" id="imgBtn">Create Auction</button>
+                    <button (click)="createAuction()" type="button" class="btn" id="imgBtn">Create New Auction</button>
                     <button *ngIf='auctions.length === 0' (click)="getAuctions()" type="button" class="btn"
                         id="imgBtn">Refresh Auctions</button>
                 </div>
