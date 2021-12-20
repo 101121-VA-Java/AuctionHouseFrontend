@@ -21,6 +21,12 @@ export class AuctioneerComponent implements OnInit {
   ngOnInit(): void {
     this.ids = this.auctionService.ids;
     this.auctions = this.auctionService.auctions;
+    console.log(this.auctions)
+  }
+
+  ngDoCheck() {
+    console.log('do check');
+    this.auctions = this.auctionService.auctions;
   }
 
   createAuction() {
@@ -40,8 +46,17 @@ export class AuctioneerComponent implements OnInit {
         url: primaryImageSmall
       };
       this.artService.listArtForAuction(data).subscribe((res: any) => {
-        this.auctions = this.auctionService.getAuctions();
+        let auction = {
+          art: this.artService.mostRecentArt,
+          bids: [],
+          highestBid: 0
+        }
+        this.auctions.push(auction);
       });
     })
+  }
+
+  getAuctions() {
+    this.auctions = this.auctionService.auctions;
   }
 }

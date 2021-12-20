@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Art } from '../model/Art';
 import { Auction } from '../model/Auction';
 import { Bid } from '../model/Bid';
@@ -20,20 +19,22 @@ export class AuctionService {
   }
 
   getAuctions() {
-    this.auctions = [];
     let arts: Art[], bids: Bid[], highestBid: number;
     this.as.getSavedArt().subscribe((res1: any) => {
-      arts = this.as.arts;
+      arts = this.as.arts.filter((art: { ownerid: number; }) => art.ownerid === 1);
       this.bs.getAllBids().subscribe((res2: any) => {
         bids = this.bs.bids;
+        let result: Auction[] = [];
         for (const art of arts) {
           let bidsOfArt: Bid[] = bids.filter(bid => bid.artid === art.id);
           highestBid = bidsOfArt.length <= 0 ? 0 : this.getHighestBid(bidsOfArt);
           let auction: Auction = {art, bids: bidsOfArt, highestBid};
-          this.auctions.push(auction);
+          result.push(auction);
         }
+        this.auctions = result;
       })
     })
+    console.log(this.auctions);
     return this.auctions;
   }
 
@@ -51,8 +52,8 @@ export class AuctionService {
     return this.as.getArtById(randomArtPieceId);
   }
 
-  getHighestBid(bidsOnOneArtPiece: Bid[]) {
-    return bidsOnOneArtPiece.reduce((max, current) => {
+  getHighestBid(arrayOfBids: Bid[]) {
+    return arrayOfBids.reduce((max, current) => {
       if(current.amount > max) max = current.amount;
       return max;
     }, 0)

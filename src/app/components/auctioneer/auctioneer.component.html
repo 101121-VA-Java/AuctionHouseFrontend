@@ -2,20 +2,18 @@
 <div id="page">
     <div class="container">
         <hr>
-        <div class="row">
-            <h1 class="display-5">List Art for Auction</h1>
-            <div class="col-8">
-                <button (click)="createAuction()" type="button" class="btn" id="imgBtn">Create Auction</button>
-            </div>
-        </div>
-        <ng-container>
-            <app-auction-container [auctions]="auctions">
-                <div  *ngFor='let auction of auctions'>
-                    <app-auction [auction]="auction">
-                        
-                    </app-auction>
+        <ng-container (updateArtOwnerEvent)='getAuctions()'>
+            <div class="row">
+                <h1 class="display-5">List Art for Auction</h1>
+                <div class="col-8">
+                    <button (click)="createAuction()" type="button" class="btn" id="imgBtn">Create Auction</button>
+                    <button *ngIf='auctions.length === 0' (click)="getAuctions()" type="button" class="btn"
+                        id="imgBtn">Refresh Auctions</button>
                 </div>
-            </app-auction-container>
+            </div>
+            <div *ngFor='let auction of auctions'>
+                <app-auction-as-auctioneer [auction]='auction'></app-auction-as-auctioneer>
+            </div>
         </ng-container>
     </div>
 </div>

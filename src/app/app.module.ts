@@ -15,6 +15,9 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { AuctionComponent } from './components/auction/auction.component';
 import { ArtService } from './services/art.service';
 import { AuctionContainerComponent } from './components/auction-container/auction-container.component';
+import { AuctionAsAuctioneerComponent } from './components/auction-as-auctioneer/auction-as-auctioneer.component';
+import { BidHistoryComponent } from './components/bid-history/bid-history.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { AuctionContainerComponent } from './components/auction-container/auctio
     CountdownComponent,
     LogoutComponent,
     AuctionComponent,
-    AuctionContainerComponent
+    AuctionContainerComponent,
+    AuctionAsAuctioneerComponent,
+    BidHistoryComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

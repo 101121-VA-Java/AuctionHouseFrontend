@@ -37,4 +37,8 @@ export class AuctionComponent implements OnInit {
       this.newBidEvent.emit(res);
     })
   }
+
+  getAuction() {
+    console.log(this.auction.art.id);
+  }
 }

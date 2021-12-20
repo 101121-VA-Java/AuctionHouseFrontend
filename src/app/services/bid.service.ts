@@ -18,9 +18,9 @@ export class BidService {
     }));
   }
 
-  getOwnBids() {
+  getBidsByBidderId() {
     let userId = localStorage.getItem("token")?.split(":")[0];
-    let url = `http://localhost:8080/bids/${userId}`;
+    let url = `http://localhost:8080/bids/?bidderId=${userId}`;
     return this.http.get(url).pipe(map((response: any) => {
       this.bids = response;
     }));
