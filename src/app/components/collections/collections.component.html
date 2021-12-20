@@ -1,5 +1,21 @@
 <app-nav></app-nav>
-<p>collections works!</p>
+<div id="page">
+
+ <ng-container *ngIf='this.populateArt.length > 0; else noArts'>
+  <p>{{populateArt.length}} art pieces in collection.</p>
+
+  <div *ngFor='let art of arts'>
+    <hr>
+    <p *ngIf='art["name"]'>Name: {{art["name"]}}</p>
+    <p *ngIf='art["artist"]'>Artist: {{art["artist"]}}</p>
+    <img [src]="art['url']">
+</div>
+       
+    </ng-container>
+    <ng-template #noArts>
+        No Art yet.
+    </ng-template>
+
 
 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
     <div class="carousel-inner">
@@ -21,4 +37,5 @@
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
+  </div>
   </div>

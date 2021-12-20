@@ -18,9 +18,9 @@
 
           <div class="input-group mb-3">
             <span class="input-group-text">$</span>
-            <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+            <input type="text" [(ngModel)]="bidAmount" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
 
-            <span type="button" class=" input-group-text" id="sub">
+            <span type="button" class=" input-group-text" id="sub" (click)='bid()'>
               Submit
             </span>
           </div>

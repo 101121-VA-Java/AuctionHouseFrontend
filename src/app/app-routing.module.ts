@@ -16,7 +16,7 @@ const routes: Routes = [{
   path:'auctioneer',
     component: AuctioneerComponent
 },{
-  path:'client/collections',
+  path:'collections',
     component: CollectionsComponent
 },{
   path: 'auction',  

@@ -1,6 +1,8 @@
 import { HttpStatusCode } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/model/user';
+import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -15,7 +17,7 @@ export class NavComponent implements OnInit {
   uname: string = '';
   pw: string = '';
 
-  constructor(private us: UserService){
+  constructor(private us: UserService, private Auth: AuthService, private router: Router){
     this.refreshInfo();
   }
 
@@ -40,5 +42,16 @@ export class NavComponent implements OnInit {
     this.fname = u.fname;
     this.lname = u.lname;
     this.uname = u.uname;
+  }
+
+  home(){
+    let role = Number.parseInt(this.Auth.token.split(":")[1]);
+        if(role === 1){
+          this.router.navigate(['/auctioneer'])
+        } else if(role === 2){
+          this.router.navigate(['/client'])
+        } else {
+          this.router.navigate(['/'])
+        };
   }
 }

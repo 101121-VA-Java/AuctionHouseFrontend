@@ -10,6 +10,7 @@ import { Art } from '../model/Art';
 export class ArtService {
   ids: any = null;
   arts: any = null;
+  owerId: any = null;
   mostRecentArt: any = null;
   
   constructor(private http: HttpClient) { 
@@ -28,7 +29,7 @@ export class ArtService {
       this.ids = response.objectIDs;
     }));
   }
-
+  
   getArtsByType(type: string):Observable<void> {
     let search = 'search?isPublicDomain=true&hasImage=true&q=' + type;
     let url = 'https://collectionapi.metmuseum.org/public/collection/v1/';
@@ -43,6 +44,19 @@ export class ArtService {
       map(response => response as Art)
     )
   }
+
+  getLoggedInUserArt(): Observable<Art>{
+    // split token from localstorage i.e. 1
+    let userId = localStorage.getItem("token")?.split(":")[0];
+    return this.http.get(`http://localhost:8080/users/${userId}/arts/`)
+    .pipe(
+      map(response => response as Art)
+    )
+
+  }
+
+
+  
 
   listArtForAuction(data: any){
     return this.http.post(
