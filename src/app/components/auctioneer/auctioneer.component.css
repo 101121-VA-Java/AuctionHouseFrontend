@@ -8,13 +8,21 @@
     font-size: calc(1rem + 1vw);
 }
 
-#auct {
-    padding-bottom: 1rem;
+#opt {
+    text-align: center;
 }
 
-#colu-top {
-    padding-top: 5rem;
+#textH {
+    padding-top: 2rem;
+    color: aliceblue;
+    text-decoration: solid;
+    margin-right: 7rem;
+    margin-left: 7rem;
 }
+.display-5 {
+    font-size: calc(1rem + 1vw);
+}
+
 
 #imgBtn {
     color: #65b5f6;
@@ -24,6 +32,12 @@
     padding: 8px 16px;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-    margin-right: 1rem;
+    margin-left: 7rem;
+    margin-top: 3rem;
+    width: fit-content;
 
+}
+
+.card-body{
+    background-color: black;
 }
