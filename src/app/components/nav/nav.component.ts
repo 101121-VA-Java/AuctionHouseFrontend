@@ -44,10 +44,10 @@ export class NavComponent implements OnInit {
   }
 
   home(){
-    let role = Number.parseInt(this.us.token.split(":")[1]);
-        if(role === 1){
+    let role = localStorage.getItem("token")?.split(":")[1];
+        if(role === '1'){
           this.router.navigate(['/auctioneer'])
-        } else if(role === 2){
+        } else if(role === '2'){
           this.router.navigate(['/client'])
         } else {
           this.router.navigate(['/'])
