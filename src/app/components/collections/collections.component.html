@@ -1,38 +1,19 @@
 <app-nav></app-nav>
+<div id="page">
 <ng-container>
-  <!-- <div *ngIf='ownedArt.length > 0; else none' id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-    <div  class="carousel-inner">
-      <div *ngFor='let art of ownedArt'>
-        <div class="carousel-item">
-          <img [src]='art["url"]' class="d-block w-100" alt="owned-art">
+  <div *ngIf='ownedArt.length > 0; else none'>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div *ngFor='let art of ownedArt'>
+      <div class="col">
+        <div class="card h-100 text-white bg-transparent" style="width: 18rem;">
+          <img [src]='art["url"]' class="card-img-top" alt="owned-art">
+          <div class="card-body">
+            <p class="card-text bg-transparent"  *ngIf='art["name"]'>Name: {{art["name"]}}</p>
+            <p class="card-text bg-transparent"  *ngIf='art["artist"]'>artist: {{art["artist"]}}</p>
+          </div>
+        </div>
         </div>
       </div>
-      <div class="carousel-item active">
-        <img src=" " class="d-block w-100" alt="...">
-      </div>
-      <div class="carousel-item">
-        <img src=" " class="d-block w-100" alt="...">
-      </div>
-      <div class="carousel-item">
-        <img src="..." class="d-block w-100" alt="...">
-      </div>
-    </div>
-    
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-  <ng-template #none>
-    none owned
-  </ng-template> -->
-  <div *ngIf='ownedArt.length > 0; else none' id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-    <div *ngFor='let art of ownedArt'>
-      <img [src]='art["url"]' class="d-block w-100" alt="owned-art">
     </div>
   </div>
   <ng-template #none>
@@ -40,3 +21,4 @@
   </ng-template>
   <button (click)='refreshOwnedArt()' class="btn btn-primary">test</button>
 </ng-container>
+</div>

@@ -1,21 +1,23 @@
 <hr>
-<div *ngIf='auction["art"]["url"]' class="col-8">
+<div class="row">
+    <div *ngIf='auction["art"]["url"]' class="col">
     <img [src]='auction["art"]["url"]'>
 </div>
-<div *ngIf='auction["art"]["id"]' class="col">
-    <div id="colu-top">
-        <h4 class="display-6" *ngIf='auction["art"]["name"]'>Name: {{auction["art"]["name"]}}</h4>
-        <h5 class="display-6" *ngIf='auction["art"]["artist"]'>Artist: {{auction["art"]["artist"]}}</h5>
-        <p class="display-6">Highest Bid: {{auction["highestBid"]}}</p>
-        <button type="button" class="btn" id="bids" data-bs-toggle="modal" [attr.data-bs-target]="'#art' + auction['art']['id']">
-            See bid history
-          </button>
-        <span (click)='sellForHighestBid()' type="button" class=" input-group-text" id="sub">
-            Accept highest bid
-        </span>
-        <span (click)='cancelListing()' type="button" class=" input-group-text" id="sub">
-            Cancel listing
-        </span>
-    </div>
+
+<div *ngIf='auction["art"]["id"]' class="col" id="info">
+    <h4 class="display-5" *ngIf='auction["art"]["name"]'>Name: {{auction["art"]["name"]}}</h4>
+    <h5 class="display-5" *ngIf='auction["art"]["artist"]'>Artist: {{auction["art"]["artist"]}}</h5>
+    <p class="display-5">Highest Bid: ${{auction["highestBid"]}}</p>
+
+    <button type="button" class="btn" id="bids" data-bs-toggle="modal"
+        [attr.data-bs-target]="'#art' + auction['art']['id']">
+        See bid history
+    </button>
+
+    <button type="button" class="btn btn-success" (click)='sellForHighestBid()' id="sub"> Accept Bid</button>
+    <button type="button" class="btn btn-danger" (click)='cancelListing()' id="sub"> Cancel Bid</button>
+
     <app-bid-history [artId]='auction["art"]["id"]' [bids]='auction["bids"]'></app-bid-history>
+</div>
+
 </div>
