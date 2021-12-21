@@ -11,6 +11,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 
 export class NavComponent implements OnInit {
+  currentUser: any = JSON.parse(localStorage['currentUser']);
+  role: number = 0;
   fname: string = '';
   lname: string = '';
   uname: string = '';
@@ -20,7 +22,9 @@ export class NavComponent implements OnInit {
     this.refreshInfo();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(this.currentUser) this.role = this.currentUser.roleid;
+  }
 
   update() {
     let u: User = {fname: this.fname, lname: this.lname, uname: this.uname, pw: this.pw, roleid: 2}
