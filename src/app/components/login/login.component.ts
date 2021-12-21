@@ -15,6 +15,12 @@ export class LoginComponent implements OnInit {
   constructor(private us: UserService, private router: Router) {}
 
   ngOnInit(): void {
+    let role = localStorage.getItem("token")?.split(":")[1];
+        if(role === '1'){
+          this.router.navigate(['/auctioneer'])
+        } else if(role === '2'){
+          this.router.navigate(['/client'])
+        } 
   }
 
   login(): void{
