@@ -18,6 +18,7 @@ import { AuctionContainerComponent } from './components/auction-container/auctio
 import { AuctionAsAuctioneerComponent } from './components/auction-as-auctioneer/auction-as-auctioneer.component';
 import { BidHistoryComponent } from './components/bid-history/bid-history.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { SearchBiddersComponent } from './components/search-bidders/search-bidders.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ModalComponent } from './components/modal/modal.component';
     AuctionContainerComponent,
     AuctionAsAuctioneerComponent,
     BidHistoryComponent,
-    ModalComponent
+    ModalComponent,
+    SearchBiddersComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import { CollectionsComponent } from './components/collections/collections.compo
 import { LoginComponent } from './components/login/login.component';
 import { AuctionComponent } from './components/auction/auction.component';
 import { RegisterComponent } from './components/register/register.component';
+import { SearchBiddersComponent } from './components/search-bidders/search-bidders.component';
 
 const routes: Routes = [{
   path: '',
@@ -22,6 +23,10 @@ component: RegisterComponent
   path:'collections',
     component: CollectionsComponent
 },{
+  path:'search-bidders',
+    component: SearchBiddersComponent
+},
+{
   path: 'auction',  
     component: AuctionComponent
 }];

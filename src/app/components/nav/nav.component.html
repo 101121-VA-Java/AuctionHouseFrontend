@@ -1,3 +1,4 @@
+<ng-container>
 <nav class="navbar" id="navbar">
   <a class="navbar-brand" id="navBrand">
     <img src="assets/img/logo1.png" style="size: 10%;">
@@ -18,11 +19,17 @@
         Account
       </button>
     </li>
+    <li *ngIf='role === 1' class="nav-item">
+      <button type="button" class="btn" id="acct" routerLink='/search-bidders'>
+        Search Bidders
+      </button>
+    </li>
     <li class="nav-item">
       <app-logout></app-logout>
     </li>
   </ul>
 </nav>
+</ng-container>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
