@@ -38,14 +38,10 @@ export class AuctionContainerComponent implements OnInit {
   }
 
   updateAuctions() {
-    console.log('update auctions');
-    console.log(this.auctions);
     this.auctions = this.auctionService.getAuctions();
-    console.log(this.auctions);
   }
 
   getAuctions() {
-    console.log(this.auctions);
     this.auctions = this.auctionService.auctions;
   }
 }
