@@ -1,7 +1,8 @@
 <app-nav></app-nav>
+<div id="page">
 <ng-container>
     <div class="form-group mx-sm-3 mb-2">
-        <label for="inputPassword2" class="sr-only">Bidder ID to search for</label>
+        <label for="inputPassword2" class="sr-only display-6"> Enter A Bidder ID to search for</label>
         <input [(ngModel)]='bidderId' name='' class="form-control" id="inputPassword2" placeholder="Bidder ID">
     </div>
     <button (click)='searchBidders(bidderId)' type="submit" class="btn btn-primary mb-2">Search bids</button>
@@ -17,3 +18,4 @@
         No bids found for this client.
     </ng-template>
 </ng-container>
+</div>
