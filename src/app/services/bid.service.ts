@@ -18,11 +18,11 @@ export class BidService {
     }));
   }
 
-  getBidsByBidderId() {
-    let userId = localStorage.getItem("token")?.split(":")[0];
-    let url = `http://localhost:8080/bids/?bidderId=${userId}`;
+  getBidsByBidderId(bidderId: number) {
+    let url = `http://localhost:8080/bids/?bidderId=${bidderId}`;
     return this.http.get(url).pipe(map((response: any) => {
       this.bids = response;
+      return response;
     }));
   }
 
