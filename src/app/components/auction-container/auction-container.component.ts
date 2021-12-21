@@ -42,7 +42,6 @@ export class AuctionContainerComponent implements OnInit {
   }
 
   getAuctions() {
-    console.log(this.auctions);
     this.auctions = this.auctionService.auctions;
   }
 }

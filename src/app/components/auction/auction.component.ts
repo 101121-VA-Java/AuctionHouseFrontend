@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Auction } from 'src/app/model/Auction';
 import { Bid } from 'src/app/model/Bid';
-import { AuctionService } from 'src/app/services/auction.service';
 import { BidService } from 'src/app/services/bid.service';
+import { EventService } from 'src/app/services/event.service';
 
 @Component({
   selector: 'app-auction',
@@ -12,9 +12,8 @@ import { BidService } from 'src/app/services/bid.service';
 
 export class AuctionComponent implements OnInit {
   @Input() auction!: Auction;
-  @Output() newBidEvent = new EventEmitter();
   unsavedBid: number = 0;
-  constructor(private bidService: BidService, private auctionService: AuctionService) { }
+  constructor(private bidService: BidService, private es: EventService) { }
 
   ngOnInit(): void {
   }
@@ -33,8 +32,8 @@ export class AuctionComponent implements OnInit {
       amount, artid, bidderid
     };
 
-    this.bidService.createBid(body).subscribe((res: any) => {
-      this.newBidEvent.emit(res);
+    this.bidService.createBid(body).subscribe((res: Bid) => {
+      this.es.newBid(res);
     })
   }
 

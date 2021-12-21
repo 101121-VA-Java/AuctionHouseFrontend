@@ -12,8 +12,6 @@ export class BidHistoryComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.bids);
-    console.log(this.artId);
   }
 
 }
