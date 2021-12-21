@@ -7,7 +7,7 @@
 <div *ngIf='auction["art"]["id"]' class="col" id="info">
     <h4 class="display-5" *ngIf='auction["art"]["name"]'>Name: {{auction["art"]["name"]}}</h4>
     <h5 class="display-5" *ngIf='auction["art"]["artist"]'>Artist: {{auction["art"]["artist"]}}</h5>
-    <p class="display-5">Highest Bid: {{auction["highestBid"]}}</p>
+    <p class="display-5">Highest Bid: ${{auction["highestBid"]}}</p>
 
     <button type="button" class="btn" id="bids" data-bs-toggle="modal"
         [attr.data-bs-target]="'#art' + auction['art']['id']">
