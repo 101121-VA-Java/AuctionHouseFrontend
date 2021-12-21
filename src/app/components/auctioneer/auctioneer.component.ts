@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Auction } from 'src/app/model/Auction';
 import { AuctionService } from 'src/app/services/auction.service';
 import { Art } from 'src/app/model/Art';
+import { EventService } from 'src/app/services/event.service';
+import { Bid } from 'src/app/model/Bid';
 
 @Component({
   selector: 'app-auctioneer',
@@ -16,17 +18,23 @@ export class AuctioneerComponent implements OnInit {
   auctions: Auction[] = [];
   show = true;
 
-  constructor(private artService: ArtService, private auctionService: AuctionService) { }
+  constructor(private artService: ArtService, private auctionService: AuctionService, private es: EventService) { }
 
   ngOnInit(): void {
     this.ids = this.auctionService.ids;
     this.auctions = this.auctionService.auctions;
-    console.log(this.auctions)
-  }
-
-  ngDoCheck() {
-    console.log('do check');
-    this.auctions = this.auctionService.auctions;
+    this.es.acceptBidEvent$.subscribe((res: Bid) => {
+      this.auctions = this.auctionService.auctions;
+    });
+    this.es.newBidEvent$.subscribe((res: Bid) => {
+      this.auctions = this.auctionService.auctions;
+    });
+    this.es.newArtEvent$.subscribe((art: Art) => {
+      this.auctions = this.auctionService.auctions;
+    });
+    this.es.removeArtEvent$.subscribe((id: number) => {
+      this.auctions = this.auctionService.auctions;
+    });
   }
 
   createAuction() {
@@ -45,13 +53,8 @@ export class AuctioneerComponent implements OnInit {
         ownerid: 1,
         url: primaryImageSmall
       };
-      this.artService.listArtForAuction(data).subscribe((res: any) => {
-        let auction = {
-          art: this.artService.mostRecentArt,
-          bids: [],
-          highestBid: 0
-        }
-        this.auctions.push(auction);
+      this.artService.listArt(data).subscribe((res: Art) => {
+        this.es.newArt(res);
       });
     })
   }
