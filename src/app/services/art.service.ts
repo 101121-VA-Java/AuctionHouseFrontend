@@ -47,29 +47,16 @@ export class ArtService {
   getArtById(objectID: number): Observable<Art>{
     let url = 'https://collectionapi.metmuseum.org/public/collection/v1/objects/'+objectID;
     return this.http.get(url).pipe(map(response => response as Art))
-  }
+  } 
 
-  getLoggedInUserArt(): Observable<Art>{
-    // split token from localstorage i.e. 1
-    let userId = localStorage.getItem("token")?.split(":")[0];
-    return this.http.get(`http://localhost:8080/users/${userId}/arts/`)
-    .pipe(
-      map(response => response as Art)
-    )
-
-  }
-
-
-  
-
-  listArtForAuction(data: any){
+  listArt(data: any){
     return this.http.post(
       'http://localhost:8080/arts', data, { 
         headers: {'Content-type': 'application/json'},
         observe: 'response'
       }).pipe(
           map(response => {
-            this.mostRecentArt = response.body;
+            return response.body as Art;
           })
       ) 
   }
@@ -82,6 +69,7 @@ export class ArtService {
         observe: 'response'
       }).pipe(
           map(response => {
+            return response.body as Art;
           })
       ) 
   }
@@ -93,9 +81,8 @@ export class ArtService {
         observe: 'response'
       }).pipe(
           map(response => {
+            return response.body;
           })
       ) 
   }
-
-
 }

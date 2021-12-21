@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Auction } from 'src/app/model/Auction';
 import { ArtService } from 'src/app/services/art.service';
+import { EventService } from 'src/app/services/event.service';
 import { Art } from '../../model/Art';
 @Component({
   selector: 'app-auction-as-auctioneer',
@@ -9,9 +10,8 @@ import { Art } from '../../model/Art';
 })
 export class AuctionAsAuctioneerComponent implements OnInit {
   @Input() auction!: Auction;
-  @Output() updateArtOwnerEvent = new EventEmitter();
 
-  constructor(private as: ArtService) { }
+  constructor(private as: ArtService, private es: EventService) { }
 
   ngOnInit(): void {
   }
@@ -31,17 +31,17 @@ export class AuctionAsAuctioneerComponent implements OnInit {
       ownerid: highestBidderId,
       url: art.url
     }
-    this.as.updateArtOwner(updatedArt).subscribe((res: any) => {
-      console.log(typeof res)
-      console.log(res)
-      this.updateArtOwnerEvent.emit(res);
+    this.as.updateArtOwner(updatedArt).subscribe((res: Art) => {
+      this.es.acceptBidEvent$.emit(res);
     })
   }
 
   cancelListing() {
-    //delete 8080/
-    //
-    //
+    let id = this.auction.art.id;
+    if(!id) return;
+    this.as.deleteArt(id).subscribe((res: any) => {
+      this.es.removeArt(res);
+    })
   }
 
 }
